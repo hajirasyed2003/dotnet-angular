@@ -1,0 +1,223 @@
+Casestudy6:
+
+Song Class: 
+
+using System.Collections.Generic;
+using System;
+
+namespace SONG
+{
+    public class Song
+    {
+        private static readonly List <string> allowedGenres= new List <string> {"Pop", "HipHop", "Soul Music", "Jazz", "Rock", "Disco", "Melody", "Classic"}; 
+        public int SongId {get; set;}
+        public string SongName {get; set;}
+        private string songGenre;
+        public string SongGenre 
+        { 
+          get {return songGenre;}
+          set {
+          if (allowedGenres.Contains(value, StringComparer.OrdinalIgnoreCase))
+          {
+              songGenre=value;
+          }
+          else
+          {
+              throw new ArgumentException("Invalid Genre");
+          }
+          }
+            
+        }
+    }
+}
+
+Interface class:
+using System.Collections.Generic;
+using System;
+using SONG;
+namespace Interfaces
+{
+    interface IPlaylist
+    {
+        void Add(Song song);
+        void Remove(int SongId);
+        Song GetSongById(int songId); 
+        Song GetSongByName(string songName); 
+        List<Song> GetAllSongs(); 
+    }
+}
+
+MyPlayList class:
+
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using SONG;
+using Interfaces;
+namespace Implementation
+{
+    class MyPlayList:IPlaylist
+    {
+        public static List<Song> myPlayList = new List<Song>(){} 
+        private int capacity;
+        
+        public MyPlayList()
+        {
+            capacity=20;
+        } 
+        
+        public void Add(Song song)
+        {
+            if (myPlayList.Count<capacity)
+            {
+                myPlayList.Add(song);
+                Console.WriteLine("Song successfully added.");
+            }
+            else
+            {
+                Console.WriteLine("Capacity Exceeded");
+            }
+        }
+        
+        public void Remove(int SongId)
+        {
+            Song songToRemove=myPlayList.FirstOrDefault(s => s.SongId == SongId);
+            if (songToRemove!=null)
+            {
+                myPlayList.Remove(songToRemove);
+                Console.WriteLine("Song successfully removed");
+            }
+            else
+            {
+                Console.WriteLine("Song not found");
+            }
+        }
+        
+        public Song GetSongById(int songId)
+        {
+            return myPlayList.FirstOrDefault(s => s.SongId == songId);
+        }
+        
+        public Song GetSongByName(string songName)
+        {
+            return myPlayList.FirstOrDefault(s => string.Equals(s.SongName,songName,StringComparison.OrdinalIgnoreCase));
+        }
+        
+        public List<Song> GetAllSongs()
+        {
+            return myPlayList;
+        }
+        
+        
+    }
+}
+
+Main method:
+
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using SONG;
+using Interfaces;
+using Implementation;
+
+namespace CASESTUDY
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            MyPlayList playlist=new MyPlayList();
+            while(true)
+            {
+            Console.WriteLine("MENU");
+            Console.WriteLine("1. Add a Song");
+            Console.WriteLine("2. Remove Song");
+            Console.WriteLine("3. Get song by Id");
+            Console.WriteLine("4. Get song by name");
+            Console.WriteLine("5. Get all songs from the playlist");
+            Console.WriteLine("6. Exit ");
+            Console.WriteLine("Choose");
+            string choice=Console.ReadLine();
+            
+            switch(choice)
+            {
+                case "1":
+                    Console.WriteLine("Enter the SongID of the Song:");
+                    int id1=int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter the name of the Song:");
+                    string name1=Console.ReadLine();
+                    Console.WriteLine("Enter the Genre of the Song:");
+                    string genre1=Console.ReadLine();
+                    
+                    try
+                        {
+                            Song song = new Song
+                            {
+                                SongId = id1,
+                                SongName = name1,
+                                SongGenre = genre1
+                            };
+                            playlist.Add(song);
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    break;
+                    
+                
+                case "2":
+                    Console.WriteLine("Enter the SongID of the Song:");
+                    int id2=int.Parse(Console.ReadLine());
+                    playlist.Remove(id2);
+                    break;
+                
+                case "3":
+                    Console.WriteLine("Enter the SongID of the Song:");
+                    int id3=int.Parse(Console.ReadLine());
+                    Song s1=playlist.GetSongById(id3);
+                    if (s1!=null)
+                    {
+                        Console.WriteLine($"Song ID: {s1.SongId} , Song Name: {s1.SongName} , Song Genre: {s1.SongGenre}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Song not found");
+                    }
+                    break;
+                
+                case "4":
+                    Console.WriteLine("Enter the name of the Song:");
+                    string name4=Console.ReadLine();
+                    Song s2=playlist.GetSongByName(name4);
+                    if (s2!=null)
+                    {
+                        Console.WriteLine($"Song ID: {s2.SongId} , Song Name: {s2.SongName} , Song Genre: {s2.SongGenre}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Song not found");
+                    }
+                    break;
+                
+                case "5":
+                    List <Song> allSongs=playlist.GetAllSongs();
+                    foreach(Song s in allSongs)
+                    {
+                        Console.WriteLine($"Song ID: {s.SongId} , Song Name: {s.SongName} , Song Genre: {s.SongGenre}");
+                    }
+                    break;
+                    
+                case "6":
+                    Console.WriteLine("Terminating...");
+                    return;
+                    
+                default:
+                    Console.WriteLine("Invalid Input");
+                    break;
+            }
+            }
+        }
+    }
+}
