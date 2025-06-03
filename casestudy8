@@ -1,0 +1,150 @@
+Casestudy8
+
+using System;
+using Emp;
+using Interfaces;
+using Implementation;
+
+
+namespace Emp{
+public class Employee
+{
+    public int EmpCode {get; set;}
+    public string EmpName {get; set;}
+    public string Email {get; set;}
+    public string DeptName {get; set;}
+    public string Location {get; set;}
+    
+    public Employee() { }
+    
+    public Employee(int e, string en, string em, string d, string l)
+    {
+        EmpCode=e;
+        EmpName=en;
+        Email=em;
+        DeptName=d;
+        Location=l;
+    }
+}
+}
+
+
+namespace Interfaces
+{
+interface IEmployee<T> where T:Employee
+{
+    public string PrintEmployeeDetails(Employee employee);
+}
+
+interface IFullTimeEmployee: IEmployee<Employee>
+{
+    public double Basic {get; set;}
+    public double Hra {get; set;}
+    public double Da {get; set;}
+    public double NetSalary {get; set;}
+    
+    public double CalculateSalary();
+}
+
+interface IPartTimeEmployee: IEmployee<Employee>
+{
+    public double Basic {get; set;}
+    public double Da {get; set;}
+    public double NetSalary {get; set;}
+    
+    public double CalculateSalary();
+}
+}
+
+
+
+namespace Implementation
+{
+public class FullTimeEmployee:Employee,IFullTimeEmployee
+{
+    public double Basic {get; set;}
+    public double Hra {get; set;}
+    public double Da {get; set;}
+    public double NetSalary {get; set;}
+    
+    public double CalculateSalary()
+    {
+        Da=0.15*Basic;
+        Hra=0.10*Basic;
+        NetSalary=Basic+Da+Hra;
+        return NetSalary;
+    }
+    
+    public string PrintEmployeeDetails(Employee employee)
+    {
+        return $"EmpCode: {employee.EmpCode} , EmpName: {employee.EmpName}, Email: {employee.Email}, Department Name: {employee.DeptName}, Location: {employee.Location}";
+    }
+}
+
+public class PartTimeEmployee:Employee,IPartTimeEmployee
+{
+    public double Basic {get; set;}
+    public double Da {get; set;}
+    public double NetSalary {get; set;}
+    
+    public double CalculateSalary()
+    {
+        Da=0.05*Basic;
+        NetSalary=Basic+Da;
+        return NetSalary;
+    }
+    
+    public string PrintEmployeeDetails(Employee employee)
+    {
+        return $"EmpCode: {employee.EmpCode} , EmpName: {employee.EmpName}, Email: {employee.Email}, Department Name: {employee.DeptName}, Location: {employee.Location}";
+    }
+}
+}
+
+
+
+namespace CASESTUDY
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Employee emp=new Employee(1,"Hajira", "hajirasyed2003@gmail.com", "FullStack", "Chennai");
+            
+             FullTimeEmployee femp = new FullTimeEmployee
+        {
+            EmpCode = emp.EmpCode,
+            EmpName = emp.EmpName,
+            Email = emp.Email,
+            DeptName = emp.DeptName,
+            Location = emp.Location,
+            Basic = 30000
+        };
+
+        femp.CalculateSalary();
+        Console.WriteLine("Full Time Employee Details:");
+        Console.WriteLine(femp.PrintEmployeeDetails(femp));
+        Console.WriteLine($"Net Salary: {femp.NetSalary}\n");
+
+        // Part Time Employee
+        PartTimeEmployee pemp = new PartTimeEmployee
+        {
+            EmpCode = 2,
+            EmpName = "Aliya",
+            Email = "aliya@gmail.com",
+            DeptName = "Support",
+            Location = "Hyderabad",
+            Basic = 30000
+        };
+
+        pemp.CalculateSalary();
+        Console.WriteLine("Part Time Employee Details:");
+        Console.WriteLine(pemp.PrintEmployeeDetails(pemp));
+        Console.WriteLine($"Net Salary: {pemp.NetSalary}");
+    
+            
+            
+    
+    }
+}
+}
