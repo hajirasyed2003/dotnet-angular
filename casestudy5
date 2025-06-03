@@ -1,0 +1,110 @@
+Casestudy5 
+
+using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    public class Student
+    {
+        public int ID;
+        public string Name;
+        
+        public Student(int id, string name)
+        {
+            ID=id;
+            Name=name;
+        }
+    }
+    
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<Student> students = new List<Student>();
+            while(true)
+            {
+            Console.WriteLine("MENU");
+            Console.WriteLine("1. Add a student");
+            Console.WriteLine("2. Display all students");
+            Console.WriteLine("3. Search for a student by name");
+            Console.WriteLine("4. Remove a student by name");
+            Console.WriteLine("5. Count Total Students ");
+            Console.WriteLine("6. Exit ");
+            Console.WriteLine("Choose");
+            string choice=Console.ReadLine();
+            
+            switch(choice)
+            {
+                case "1":
+                    Console.WriteLine("Enter the ID of the student:");
+                    int id1=int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter the name of the student:");
+                    string name1=Console.ReadLine();
+                    students.Add(new Student(id1,name1));
+                    break;
+                
+                case "2":
+                    foreach(Student student in students)
+                    {
+                        Console.WriteLine("ID:"+student.ID);
+                        Console.WriteLine("Name:"+student.Name);
+                    }
+                    break;
+                
+                case "3":
+                    Console.WriteLine("Enter the name of the student to be searched:");
+                    string name2=Console.ReadLine();
+                    bool found=false;
+                    foreach(Student student in students)
+                    {
+                        if(string.Equals(student.Name,name2,StringComparison.OrdinalIgnoreCase))
+                        {
+                            Console.WriteLine($"ID: {student.ID} , Name: {student.Name}");
+                            found=true;
+                        }
+                        
+                        if(!found)
+                        {
+                            Console.WriteLine("Student with the name is not found");
+                        }
+                    }
+                    break;
+                
+                case "4":
+                    Console.WriteLine("Enter the name of the student to be removed:");
+                    string name3=Console.ReadLine();
+                    Student removable=students.Find(s=>string.Equals(s.Name,name3,StringComparison.OrdinalIgnoreCase));
+                    if (removable!=null)
+                    {
+                        students.Remove(removable);
+                        Console.WriteLine("Successfully Removed");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student Name Not Found");
+                    }
+                   
+                    break;
+                
+                case "5":
+                    int count=0;
+                    foreach(Student student in students)
+                    {
+                        count++;
+                    }
+                    Console.WriteLine("Total Number of Students:"+count);
+                    break;
+                    
+                case "6":
+                    Console.WriteLine("Terminating...");
+                    return;
+                    
+                default:
+                    Console.WriteLine("Invalid Input");
+                    break;
+            }
+            }
+        }
+    }
+}
