@@ -1,0 +1,198 @@
+Case study 1 :
+
+Basics of CSharp
+
+1)	using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    class Employee{}
+    class Manager: Employee {}
+    class Developer: Employee {}
+    class Intern : Employee {}
+    
+    class Program
+    {
+    
+    public static void IdentifyEmployee(Employee emp)
+    {
+        if (emp is Manager)
+        {
+            Console.WriteLine("This employee is Manager");
+        }
+        else if (emp is Developer)
+        {
+            Console.WriteLine("This employee is Developer");
+        }
+        else if (emp is Intern)
+        {
+            Console.WriteLine("This employee is Intern");
+        }
+        else
+        {
+            Console.WriteLine("This employee is Unknown");
+        }
+
+
+    }
+    public static void Main(string[] args)
+    {
+        List <Employee> employees=new List <Employee>
+        {
+            new Manager(), new Developer(), new Intern(), new Employee()
+        };
+
+        foreach (var employee in employees)
+        {
+            IdentifyEmployee(employee);
+        }
+    }
+    }
+
+
+}
+
+2) using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    class Customer{}
+    class PremiumCustomer: Customer{}
+    
+    class Program
+    {
+    
+    public static void IdentifyCustomer(Customer cust)
+    {
+        if (cust as PremiumCustomer!=null)
+        {
+            Console.WriteLine("This customer qualifies as a premium customer");
+        }
+        
+        else
+        {
+            Console.WriteLine("The customer does not qualify");
+        }
+
+
+    }
+    public static void Main(string[] args)
+    {
+        List <Customer> customers=new List <Customer>
+        {
+            new Customer(), new PremiumCustomer()
+        };
+
+        foreach (var customer in customers)
+        {
+            IdentifyCustomer(customer);
+        }
+    }
+    }
+
+
+}
+
+3) using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    
+    class Program
+    {
+    
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter currency as Integer:");
+        int cur=Convert.ToInt32(Console.ReadLine());
+        
+        double tax=0.15;
+        double amount=cur+tax*cur;
+        
+        Console.WriteLine("Final Amount:"+ (int) Math.Round(amount));
+
+       
+    }
+    }
+
+
+}
+
+4) using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    class Program
+    {
+    
+    public static void Main(string[] args)
+    {
+        List <object> cartitems = new List <object>();
+        cartitems.Add(100);
+        cartitems.Add(200);
+        int total=0;
+        foreach(object item in cartitems)
+        {
+            total+=(int) item;
+        }
+        Console.WriteLine("Total Amount:"+total);
+       
+    }
+    }
+
+
+}
+
+5) using System.Collections.Generic;
+using System;
+
+namespace CASESTUDY
+{
+    
+    public class Laptop
+    {
+        public string brand;
+        const double taxrate=0.15;
+        readonly int year;
+        
+        public Laptop()
+        {
+            brand="none";
+        }
+        
+        public Laptop(string b, int y)
+        {
+            brand=b;
+            year=y;
+        }
+        
+        public void PrintInfo()
+        {
+            Console.WriteLine("Brand:"+brand);
+            Console.WriteLine("Tax Rate:"+taxrate);
+            Console.WriteLine("Year:"+year);
+            
+        }
+        
+    }
+    class Program
+    {
+    
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter Brand:");
+        string brand=Console.ReadLine();
+        Console.WriteLine("Enter Manufacturing Year:");
+        int year=Convert.ToInt32(Console.ReadLine());
+        Laptop obj=new Laptop(brand,year);
+        obj.PrintInfo();
+       
+    }
+    }
+
+
+}
