@@ -1,0 +1,66 @@
+use AutoAccessDB
+
+--1
+select * from customers
+order by first_name desc;
+
+--2
+select first_name, last_name, city from customers
+order by city, first_name;
+
+select * from products;
+
+--3
+select * from products 
+order by list_price desc
+offset 0 rows
+fetch next 3 rows only;
+
+--4
+select * from products 
+where list_price>300 and model_year=2018;
+
+--5
+select * from products 
+where list_price>3000 or model_year=2018;
+
+--6
+select * from products 
+where list_price between 1899 and 1999.99;
+
+--7
+select * from products 
+where list_price in (299.99, 469.99, 489.99);
+
+select * from customers;
+
+--8
+select * from customers
+where last_name like 'a%' or last_name like 'b%' or last_name like 'c%';
+
+--9
+select * from customers
+where first_name not like 'a%';
+
+--10
+select state, city, count(*)
+from customers
+group by state, city
+order by state, city;
+
+select * from orders;
+
+--11
+select customer_id, year(order_date), count(*)
+from orders
+group by customer_id, year(order_date)
+order by customer_id, year(order_date);
+
+select * from categories;
+select * from order_items;
+select * from products;
+
+--12
+select category_id, max(list_price) 'max list price', min(list_price) 'min list price'
+from products
+group by category_id;
