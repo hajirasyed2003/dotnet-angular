@@ -1,0 +1,222 @@
+case study 3 
+
+
+use EventDb;
+
+--1--
+Create PROCEDURE InsertEventDetails
+     @EventId int,
+	 @EventName varchar(50),
+	 @EventCategory varchar(50),
+	 @EventDate datetime,
+	 @Description varchar(100)=NULL,
+	 @Status varchar(100)=NULL
+AS
+BEGIN
+     Insert into EventDetails values(@EventId, @EventName, @EventCategory, @EventDate, @Description, @Status)
+END
+
+InsertEventDetails "1","Aram","Fundraiser","2025-01-30","Good";
+select * from EventDetails;
+
+CREATE PROCEDURE InsertParticipantEventDetails
+   @Id int,
+   @ParticipantEmailId varchar(100),
+   @EventId int,
+   @SessionId int,
+   @isAttended bit
+AS
+BEGIN 
+   Insert into ParticipantEventDetails values (@Id, @ParticipantEmailId, @EventId, @SessionId, @isAttended)
+END
+
+Create PROCEDURE InsertSessionInfo
+   @SessionId int,
+   @EventId int,
+   @SessionTitle varchar(100),
+   @SpeakerId int,
+   @Description varchar(100)=null,
+   @SessionStart datetime,
+   @SessionUrl varchar(1)=null
+AS
+BEGIN
+   Insert into SessionInfo values (@SessionId,
+   @EventId,
+   @SessionTitle,
+   @SpeakerId,
+   @Description,
+   @SessionStart,
+   @SessionUrl)
+END
+
+CREATE PROCEDURE InsertSpeakerDetails
+   @SpeakerId int,
+   @SpeakerName varchar(100)
+AS
+BEGIN
+   Insert into SpeakerDetails values (@SpeakerId,
+   @SpeakerName)
+END
+
+CREATE PROCEDURE InsertUserInfo
+   @EmailId varchar(100),
+   @UserName varchar(50),
+   @Role varchar(50),
+   @Password varchar(50)
+AS
+BEGIN
+   Insert into UserInfo values(@EmailId,
+   @UserName,
+   @Role,
+   @Password)
+END
+
+--2--
+Create PROCEDURE DeleteEventDetails
+     @EventId int
+AS
+BEGIN
+     Delete from EventDetails where EventId=@EventId
+END
+
+
+CREATE PROCEDURE DeleteParticipantEventDetails
+   @Id int
+AS
+BEGIN 
+   Delete from ParticipantEventDetails where Id=@Id
+END
+
+Create PROCEDURE DeleteSessionInfo
+   @SessionId int
+AS
+BEGIN
+   Delete from SessionInfo where SessionId=@SessionId
+END
+
+CREATE PROCEDURE DeleteSpeakerDetails
+   @SpeakerId int
+AS
+BEGIN
+   Delete from SpeakerDetails where SpeakerId=@SpeakerId
+END
+
+CREATE PROCEDURE DeleteUserInfo
+   @EmailId varchar(100)
+AS
+BEGIN
+   Delete from UserInfo where EmailId=@EmailId
+END
+
+--3--
+Create PROCEDURE UpdateEventDetails
+     @EventId int,
+	 @EventName varchar(50),
+	 @EventCategory varchar(50),
+	 @EventDate datetime,
+	 @Description varchar(100)=NULL,
+	 @Status varchar(100)=NULL
+AS
+BEGIN
+     Update EventDetails set EventName=@EventName, EventCategory=@EventCategory, EventDate=@EventDate, Description=@Description, Status=@Status
+	 where EventId=@EventId
+END
+
+
+CREATE PROCEDURE UpdateParticipantEventDetails
+   @Id int,
+   @ParticipantEmailId varchar(100),
+   @EventId int,
+   @SessionId int,
+   @isAttended bit
+AS
+BEGIN 
+   Update ParticipantEventDetails set  ParticipantEmailId=@ParticipantEmailId, EventId=@EventId, SessionId=@SessionId, isAttended=@isAttended
+   where Id=@Id
+END
+
+Create PROCEDURE UpdateSessionInfo
+   @SessionId int,
+   @EventId int,
+   @SessionTitle varchar(100),
+   @SpeakerId int,
+   @Description varchar(100)=null,
+   @SessionStart datetime,
+   @SessionUrl varchar(1)=null
+AS
+BEGIN
+   Update SessionInfo set
+   EventId=@EventId,
+   SessionTitle=@SessionTitle,
+   SpeakerId=@SpeakerId,
+   Description=@Description,
+   SessionStart=@SessionStart,
+   SessionUrl=@SessionUrl
+   where SessionId=@SessionId
+END
+
+CREATE PROCEDURE UpdateSpeakerDetails
+   @SpeakerId int,
+   @SpeakerName varchar(100)
+AS
+BEGIN
+   Update SpeakerDetails set
+   SpeakerName=@SpeakerName
+   where SpeakerId=@SpeakerId
+END
+
+CREATE PROCEDURE UpdateUserInfo
+   @EmailId varchar(100),
+   @UserName varchar(50),
+   @Role varchar(50),
+   @Password varchar(50)
+AS
+BEGIN
+   Update UserInfo set 
+   UserName=@UserName,
+   Role=@Role,
+   Password=@Password
+   where EmailId=@EmailId
+END
+
+--4--
+Create View ShowSessionDetails
+AS 
+   Select EventId, SessionId, SessionTitle, Description, SessionStart, SessionUrl
+   from SessionInfo;
+
+Select * from ShowSessionDetails
+where EventId=1;
+
+--5--
+Create View ShowSpeakerDetails
+AS 
+   Select s.SpeakerId, s.SpeakerName, se.SessionId
+   from SpeakerDetails s inner join SessionInfo se
+   on s.SpeakerId=se.SpeakerId;
+
+Select * from ShowSpeakerDetails 
+where SpeakerId=1;
+
+--6--
+Create View ShowAllDetails
+AS
+   Select e.EventId, p.Id, p.ParticipantEmailId, s.SessionId, s.SessionTitle, s.Description, sp.SpeakerId, sp.SpeakerName
+   from ((EventDetails e Left join ParticipantEventDetails p on e.EventId=p.EventId) Left join SessionInfo s on e.EventId=s.EventId)
+   Left join SpeakerDetails sp on s.SpeakerId=sp.SpeakerId;
+
+Select * from ShowAllDetails
+where EventId=1;
+
+--7--
+Create NONCLUSTERED INDEX IX_EventName
+on EventDetails(EventName);
+
+Create NONCLUSTERED INDEX IX_SessionTitle
+on SessionInfo(SessionTitle);
+
+Create NONCLUSTERED INDEX IX_SpeakerName
+on SpeakerDetails(SpeakerName);
+
+Create NONCLUSTERED INDEX IX_Username
+on UserInfo(Username);
