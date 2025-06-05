@@ -1,0 +1,68 @@
+--Triggers--
+
+Create database	Triggere
+use Triggere
+
+
+
+CREATE TABLE Employees ( 
+
+    EmpID INT PRIMARY KEY, 
+
+    EmpName VARCHAR(100), 
+
+    Department VARCHAR(50), 
+
+    Salary DECIMAL(10, 2) 
+
+); 
+
+
+
+CREATE TABLE EmployeeAuditLog ( 
+
+    LogID INT IDENTITY(1,1) PRIMARY KEY, 
+
+    EmpID INT, 
+
+    EmpName VARCHAR(100), 
+
+    Department VARCHAR(50), 
+
+    Salary DECIMAL(10,2), 
+
+    ActionType VARCHAR(10), 
+
+    ActionDate DATETIME DEFAULT GETDATE() 
+
+); 
+
+
+Create Trigger trg_audit_Insert
+on Employees
+AFTER INSERT
+AS
+BEGIN
+   Insert into EmployeeAuditLog(EmpID, EmpName, Department, Salary, ActionType)
+   Select EmpID, EmpName, Department, Salary, 'INSERT'
+   from INSERTED
+END
+
+Insert into Employees(EmpID, EmpName, Department, Salary)
+values (1001,'Rohan','HR',20000);
+   
+Select * from EmployeeAuditLog;
+
+Create Trigger trg_audit_delete
+on Employees
+AFTER DELETE
+AS
+Begin
+    Insert into EmployeeAuditLog (EmpID, EmpName, Department, Salary, ActionType)
+	Select EmpID, EmpName, Department, Salary, 'DELETE'
+	from deleted
+END;
+
+Delete from Employees where EmpId=1001;
+
+Select * from EmployeeAuditLog;
