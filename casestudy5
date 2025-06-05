@@ -1,0 +1,66 @@
+use Triggere
+
+CREATE TABLE Orders ( 
+
+    OrderID INT IDENTITY(1,1) PRIMARY KEY, 
+
+    CustomerName VARCHAR(100), 
+
+    OrderDate DATETIME DEFAULT GETDATE() 
+
+); 
+
+
+CREATE TABLE OrderItems ( 
+
+    OrderItemID INT IDENTITY(1,1) PRIMARY KEY, 
+
+    OrderID INT FOREIGN KEY REFERENCES Orders(OrderID), 
+
+    ProductName VARCHAR(100), 
+	
+    Quantity INT CHECK (Quantity>0), 
+
+    UnitPrice DECIMAL(10,2) 
+
+); 
+
+BEGIN TRY
+    BEGIN TRANSACTION
+	     
+		 Insert into Orders (CustomerName) Values ('Hajira');
+
+		 DECLARE @OrderID INT =SCOPE_IDENTITY();
+
+		 Insert into OrderItems (OrderID, ProductName, Quantity, UnitPrice) values (@OrderID, 'Laptop', 1, 50000);
+		 
+		 COMMIT;
+		 PRINT 'Order placed successfully';
+END TRY
+BEGIN CATCH 
+    ROLLBACK;
+	PRINT 'Order failed';
+END CATCH
+
+
+
+BEGIN TRY
+    BEGIN TRANSACTION
+	     
+		 Insert into Orders (CustomerName) Values ('Priya');
+
+		 DECLARE @OrderID INT =SCOPE_IDENTITY();
+
+		 Insert into OrderItems (OrderID, ProductName, Quantity, UnitPrice) values (@OrderID, 'BackPack' , -1, 50000);
+		 
+		 COMMIT;
+		 PRINT 'Order placed successfully';
+END TRY
+BEGIN CATCH 
+    ROLLBACK;
+	PRINT 'Order failed';
+END CATCH
+
+
+Select * from Orders;
+Select * from OrderItems;
