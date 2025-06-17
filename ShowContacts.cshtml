@@ -1,0 +1,31 @@
+﻿@model List<ContactsDirectory.Models.ContactInfo>
+
+<h2>Contact List</h2>
+<a href="/Contact/AddContact">Add New Contact</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Contact ID</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Designation</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model)
+        {
+            <tr>
+                <td>@contact.ContactId</td>
+                <td>@contact.FirstName @contact.LastName</td>
+                <td>@contact.CompanyName</td>
+                <td>@contact.EmailId</td>
+                <td>@contact.MobileNo</td>
+                <td>@contact.Designation</td>
+                <td><a href="/Contact/GetContactById/@contact.ContactId">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
