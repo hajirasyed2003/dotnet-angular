@@ -1,0 +1,51 @@
+﻿@model ClientsDirectory.Models.ClientInfo
+
+@{
+    ViewData["Title"] = "Add Client";
+}
+
+<h2 class="mt-3">Add New Client</h2>
+
+<form asp-action="AddClient" method="post" class="mt-4">
+    <div class="form-group">
+        <label asp-for="ClientId"></label>
+        <input asp-for="ClientId" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CompanyName"></label>
+        <input asp-for="CompanyName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WebUrl"></label>
+        <input asp-for="WebUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <select asp-for="Category" class="form-control">
+            <option>Low_Level_Managed_IT_Services</option>
+            <option>Mid_Level_Managed_IT_Services</option>
+            <option>High_Level_Managed_IT_Services</option>
+            <option>On-Demand_IT_Services</option>
+            <option>Hardware_Support</option>
+            <option>Software Services</option>
+            <option>Network_Management</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Standard"></label>
+        <select asp-for="Standard" class="form-control">
+            <option>CMMI1</option>
+            <option>CMMI2</option>
+            <option>CMMI3</option>
+            <option>CMMI4</option>
+            <option>CMMI5</option>
+            <option>ISO</option>
+            <option>None</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
