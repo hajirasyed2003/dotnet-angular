@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const ecommerce_service_1 = require("./services/ecommerce.service");
+const store = new ecommerce_service_1.ecommerceService();
+store.viewProducts();
+store.addToCart(1, 1);
+store.addToCart(2, 2);
+store.addToCart(3, 1);
+store.removeFromCart(2);
+store.viewCartSummary();
+store.viewProducts();
