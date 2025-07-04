@@ -1,0 +1,9 @@
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.csproj.AssemblyReference.cache
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.AssemblyInfoInputs.cache
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.AssemblyInfo.cs
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.csproj.CoreCompileInputs.cache
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.RazorAssemblyInfo.cache
+C:\Users\syedm\source\repos\AppUiLayer\obj\Debug\net8.0\AppUiLayer.RazorAssemblyInfo.cs

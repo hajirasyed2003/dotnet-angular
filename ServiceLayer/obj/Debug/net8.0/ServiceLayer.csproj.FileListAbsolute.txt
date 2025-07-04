@@ -1,0 +1,8 @@
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.AssemblyReference.cache
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfoInputs.cache
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfo.cs
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.CoreCompileInputs.cache
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\syedm\source\repos\ServiceLayer\obj\Debug\net8.0\ServiceLayer.MvcApplicationPartsAssemblyInfo.cache
