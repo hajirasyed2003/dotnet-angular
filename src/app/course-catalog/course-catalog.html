@@ -1,0 +1,16 @@
+<h2>Course Catalog</h2>
+
+<div *ngIf="courses.length > 0; else noCourses">
+  <div *ngFor="let course of courses" style="border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem;">
+    <h3>{{ course.title | uppercase }}</h3>
+    <p><strong>Instructor:</strong> {{ course.instructor | lowercase }}</p>
+    <p><strong>Start Date:</strong> {{ course.startDate | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Price:</strong> {{ course.price | currency }}</p>
+    <p><strong>Description:</strong> {{ course.description | slice:0:30 }}...</p>
+  </div>
+</div>
+
+<ng-template #noCourses>
+  <p>No courses available at the moment.</p>
+</ng-template>
+
