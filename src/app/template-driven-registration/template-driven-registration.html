@@ -1,0 +1,38 @@
+<p> Template driven registration works! </p>
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <label>Full Name:
+    <input type="text" name="fullName" [(ngModel)]="user.fullName" required />
+  </label><br/>
+
+  <label>Email:
+    <input type="email" name="email" [(ngModel)]="user.email" required email />
+  </label><br/>
+
+  <label>Gender:
+    <input type="radio" name="gender" [(ngModel)]="user.gender" value="Male" /> Male
+    <input type="radio" name="gender" [(ngModel)]="user.gender" value="Female" /> Female
+    <input type="radio" name="gender" [(ngModel)]="user.gender" value="Other" /> Other
+  </label><br/>
+
+  <label>Country:
+    <select name="country" [(ngModel)]="user.country" required>
+      <option value="">Select</option>
+      <option value="India">India</option>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+    </select>
+  </label><br/>
+
+  <label>
+    <input type="checkbox" name="agreeToTerms" [(ngModel)]="user.agreeToTerms" required />
+    I agree to terms
+  </label><br/>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div *ngIf="submittedData">
+  <h3>Submitted Data:</h3>
+  <pre>{{ submittedData | json }}</pre>
+</div>

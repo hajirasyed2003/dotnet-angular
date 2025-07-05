@@ -1,0 +1,41 @@
+<p> Reactive form works! </p>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+   
+  <label>Full Name:
+    <input formControlName="fullName" />
+  </label><br/>
+
+  <label>Email:
+    <input formControlName="email" />
+  </label><br/>
+
+  <label>Gender:
+    <input type="radio" formControlName="gender" value="Male" /> Male
+    <input type="radio" formControlName="gender" value="Female" /> Female
+    <input type="radio" formControlName="gender" value="Other" /> Other
+  </label><br/>
+
+  <label>Country:
+    <select formControlName="country">
+      <option value="">Select</option>
+      <option value="India">India</option>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+    </select>
+  </label><br/>
+
+  <label>
+    <input type="checkbox" formControlName="agreeToTerms" />
+    I agree to terms
+  </label><br/>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div *ngIf="submittedData">
+  <h3>Submitted Data:</h3>
+  <pre>{{ submittedData | json }}</pre>
+</div>
+
